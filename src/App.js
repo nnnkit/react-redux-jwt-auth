@@ -1,14 +1,11 @@
 import React, {Component, lazy, Suspense} from 'react';
 import Header from './components/Header';
-import UserContext from './context/userContext';
 import Loading from './components/Spinner';
 import {connect} from 'react-redux';
 
-import Public from './components/Public';
-import Protected from './components/Protected';
+const Protected = lazy(() => import('./components/Protected'));
+const Public = lazy(() => import('./components/Public'));
 
-// const Protected = lazy(() => import('./components/Protected'));
-// const Public = lazy(() => import('./components/Public'));
 class App extends Component {
   componentDidMount() {
     if (localStorage.userToken) {
@@ -37,7 +34,9 @@ class App extends Component {
     ) : (
       <div>
         <Header />
-        {this.props.currentUser.isLoggedIn ? <Protected /> : <Public />}
+        <Suspense fallback={<Loading />}>
+          {this.props.currentUser.isLoggedIn ? <Protected /> : <Public />}
+        </Suspense>
       </div>
     );
   }

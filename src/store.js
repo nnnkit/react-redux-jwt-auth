@@ -1,11 +1,5 @@
-import {createStore, combineReducers} from 'redux';
-import user from './reducers/user';
-import loading from './reducers/loading';
-
-const rootReducer = combineReducers({
-  currentUser: user,
-  isLoading: loading,
-});
+import {createStore} from 'redux';
+import rootReducer from './reducers';
 
 const store = createStore(rootReducer);
 
