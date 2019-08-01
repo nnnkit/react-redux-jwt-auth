@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import store from './../store';
+import {userLogin} from './../actions';
 
 class Login extends Component {
   state = {
@@ -21,7 +22,7 @@ class Login extends Component {
     })
       .then(res => res.json())
       .then(userInfo => {
-        this.props.dispatch({type: 'USER_LOGIN', value: userInfo});
+        this.props.dispatch(userLogin(userInfo));
         localStorage.userToken = userInfo.user.token;
         this.props.history.push('/');
       })

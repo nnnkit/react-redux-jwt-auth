@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import UserContext from '../context/userContext';
+import {connect} from 'react-redux';
+import {userLogin} from '../actions';
 
-export default class Signup extends Component {
+class Signup extends Component {
   state = {
     email: '',
     password: '',
     username: '',
   };
-  static contextType = UserContext;
   handleChange = ({target: {name, value}}) => {
     this.setState({[name]: value});
   };
@@ -21,7 +21,7 @@ export default class Signup extends Component {
     })
       .then(res => res.json())
       .then(userInfo => {
-        this.context.setUser(userInfo.user);
+        this.props.dispatch(userLogin(userInfo));
         this.props.history.push('/');
       })
       .catch(err => console.log(err, 'error'));
@@ -86,3 +86,5 @@ export default class Signup extends Component {
     );
   }
 }
+
+export default connect()(Signup);

@@ -20,7 +20,7 @@ class Header extends Component {
           <div id="navbarBasicExample" className="navbar-menu">
             <div className="navbar-end">
               <div className="navbar-item">
-                {this.props.currentUser ? (
+                {this.props.isLoggedIn ? (
                   <div className="buttons">
                     <NavLink
                       to="/"
@@ -74,7 +74,7 @@ class Header extends Component {
 
 function mapState(state) {
   return {
-    currentUser: state.currentUser,
+    isLoggedIn: state.currentUser.isLoggedIn,
   };
 }
 
